@@ -1,0 +1,30 @@
+server:
+  port: 8002
+spring:
+  profiles:
+    active: @profiles.active@
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  servlet:
+    multipart:
+      max-request-size:1KB
+
+---
+spring:
+  profiles: dev
+  datasource:
+    dynamic:
+      primary: master
+      datasource:
+        master:
+          username: root
+          password: rbjf_DEV123
+          driver-class-name: com.mysql.jdbc.Driver
+          #driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://47.104.94.106:3307/testquartz?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        slave:
+          username: root
+          password: rbjf_DEV123
+          driver-class-name: com.mysql.jdbc.Driver
+          #driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://47.104.94.106:3307/testquartz?useUnicode=true&characterEncoding=utf-8&useSSL=false

@@ -1,0 +1,10 @@
+server:
+  port: 8006
+spring:
+  profiles:
+    active: @profiles.active@
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+
+

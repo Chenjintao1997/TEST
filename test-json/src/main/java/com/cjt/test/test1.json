@@ -1,0 +1,16 @@
+[
+  {
+    "companyid": "freebridge",
+    "projectname": "test",
+    "data": [
+      {
+        "bigDataGuestGroupId": "JLYI20200629",
+        "bigDataGuestGroupName": "吉林公司一汽丰田第四批需求",
+        "bigDataGuestListId": "2A70FC59B258A3FE5B72AEE10BFEE2BB"
+      }
+    ]
+  }
+]
+
+
+"[{\"field\":\"inTime\",\"fieldName\":\"签入时长\"},{\"field\":\"onlineTime\",\"fieldName\":\"上线时长\"},{\"field\":\"serviceUserTime\",\"fieldName\":\"服务用户时长\"},{\"field\":\"advTime\",\"fieldName\":\"咨询时长\"},{\"field\":\"idleTime\",\"fieldName\":\"示闲时长\"},{\"field\":\"busyTime\",\"fieldName\":\"示忙时长\"},{\"field\":\"noServiceTime\",\"fieldName\":\"无服务时长\"}]"
