@@ -12,10 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -338,6 +335,56 @@ public class ClassTest {
     }
 
     @Test
+    public void testNotify2() throws InterruptedException {
+        String str = "123";
+        new Thread(() -> {
+                System.out.println("--->wait:start");
+                try {
+                    str.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("--->wait:end");
+
+        }).start();
+
+
+        Thread.sleep(1000);
+        new Thread(() -> {
+            System.out.println("notify");
+                str.notify();
+
+        }).start();
+    }
+
+    @Test
+    //必须使用synchronized锁，reentrantLock重入锁不行
+    public void testNotify3() throws InterruptedException {
+        String str = "123";
+        new Thread(() -> {
+            System.out.println("--->wait:start");
+            try {
+                lock.lock();
+                str.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("--->wait:end");
+            lock.unlock();
+        }).start();
+
+
+        Thread.sleep(1000);
+        new Thread(() -> {
+            lock.lock();
+            System.out.println("notify");
+            str.notify();
+            lock.unlock();
+        }).start();
+    }
+
+
+    @Test
     public void testDaemon() throws InterruptedException {
         Thread thread = new Thread(() -> {
             Thread thread1 = new Thread(() -> {
@@ -447,5 +494,55 @@ public class ClassTest {
         thread.start();
 
         Thread.sleep(10 * 1000);
+    }
+
+    @Test
+    public void testCallAble() throws InterruptedException, ExecutionException {
+        FutureTask<String> futureTask = new FutureTask<>(() -> {
+            long id = Thread.currentThread().getId();
+            String name = Thread.currentThread().getName();
+            System.out.println(id+":"+name);
+            return name;
+        });
+
+        Thread t1 = new Thread(futureTask);
+        Thread t2 = new Thread(futureTask);
+
+
+
+        t1.start();
+
+        t2.start();
+        String r1 = futureTask.get();
+        System.out.println(r1);
+        Thread.sleep(1*1000);
+
+    }
+
+    @Test
+    public void testCallAble1() throws InterruptedException, ExecutionException {
+        FutureTask<String> futureTask = new FutureTask<>(() -> {
+            long id = Thread.currentThread().getId();
+            String name = Thread.currentThread().getName();
+            System.out.println(id+":"+name);
+            return name;
+        });
+
+        Thread t1 = new Thread(futureTask);
+
+        t1.start();
+        String r1 = futureTask.get();
+        System.out.println(r1);
+
+        Thread.sleep(1000);
+        Thread t2 = new Thread(futureTask);         //拿同一个FutureTask实例作为线程的参数来启用线程并不会重复执行call方法，因为future对象有记录状态
+        t2.start();
+        String r2 = futureTask.get();
+        System.out.println(r2);
+    }
+
+    @Test
+    public void testExecutors(){
+        ExecutorService executorService = Executors.newScheduledThreadPool(10);
     }
 }

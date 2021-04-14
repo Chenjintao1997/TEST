@@ -1,0 +1,20 @@
+server:
+  port: 10003
+  servlet:
+    encoding:
+      charset: UTF-8
+spring:
+  application:
+    name: sca-order
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  cloud:
+    nacos:
+      server-addr: cjtbc.com:8848
+      username: nacos
+      password: 132132
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

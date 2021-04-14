@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      #nacos config文件的dataId默认名称为：${spring.application.name}-${profile}.${file-extension:properties} ，profile不存在时，对应的dataId中不会携带--${profile}
+      config:
+        server-addr: cjtbc.com:8848
+        file-extension: yaml
+        username: nacos
+        password: 132132
+        refresh-enabled: true
+    config:
+      enabled: false

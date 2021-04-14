@@ -12,7 +12,6 @@ import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections4.ListUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
@@ -155,8 +154,8 @@ public class TestClass {
         System.out.println(b2 >>> 2);
         System.out.println(s2 >>> 2);
 
-        System.out.println(b2 >>1 );
-        System.out.println(b2 >>2 );
+        System.out.println(b2 >> 1);
+        System.out.println(b2 >> 2);
 
         System.out.println(i1 << 32);
     }
@@ -1832,7 +1831,23 @@ public class TestClass {
     }
 
     @Test
-    public void testFinal(){
+    public void testIdentity() {
+        Integer in1 = new Integer(1);
+        int i1 = 1;
+        System.out.println(in1 == i1);
+
+        System.out.println(System.identityHashCode(in1));
+        System.out.println(System.identityHashCode(i1));
+
+        Map<String, Integer> map = new HashMap<>();
+        map.put("1", in1);
+        in1 = new Integer(1000);
+
+        System.out.println(JSON.toJSONString(map));
+    }
+
+    @Test
+    public void testFinal() {
         final Car car = new Car();
         car.setPrince("123");
         System.out.println(JSON.toJSONString(car));
@@ -1854,7 +1869,7 @@ public class TestClass {
     }
 
     @Test
-    public void testFinal2(){
+    public void testFinal2() {
 
         String str3 = new StringBuilder("edf").toString();
         String str5 = str3.intern();
@@ -1863,7 +1878,7 @@ public class TestClass {
     }
 
     @Test
-    public void testFinal3(){
+    public void testFinal3() {
 
         String str3 = new StringBuilder("abc").append("def").toString();
         String str5 = str3.intern();
@@ -1962,29 +1977,29 @@ public class TestClass {
     }
 
     @Test
-    public void test110(){
+    public void test110() {
         List<String> list1 = new ArrayList<>();
         list1.add("0");
         list1.add("1");
         list1.add("2");
         list1.add("3");
 
-        list1.add(2,"2a");
+        list1.add(2, "2a");
         System.out.println(JSON.toJSONString(list1));
     }
 
     @Test
-    public void testQueue1(){
+    public void testQueue1() {
 
         ArrayList<String> list0 = new ArrayList<>();
         list0.add("0");
         list0.add("1");
         list0.add("2");
         list0.add("3");
-        for (String str : list0){
-            log.info("0-v:{}",str);
-            log.info("0-s:{}",list0.size());
-        //    list0.remove(str);
+        for (String str : list0) {
+            log.info("0-v:{}", str);
+            log.info("0-s:{}", list0.size());
+            //    list0.remove(str);
         }
 
         ArrayDeque<String> list1 = new ArrayDeque<>();
@@ -1992,9 +2007,9 @@ public class TestClass {
         list1.add("1");
         list1.add("2");
         list1.add("3");
-        for (String str : list1){
-            log.info("1-v:{}",str);
-            log.info("1-s:{}",list1.size());
+        for (String str : list1) {
+            log.info("1-v:{}", str);
+            log.info("1-s:{}", list1.size());
 //            list1.remove(str);
             //list1.remove();
             System.out.println(list1.remove());
@@ -2006,12 +2021,11 @@ public class TestClass {
         list2.add("1");
         list2.add("2");
         list2.add("3");
-        for (String str : list2){
-            log.info("2-v:{}",str);
-            log.info("2-s:{}",list2.size());
+        for (String str : list2) {
+            log.info("2-v:{}", str);
+            log.info("2-s:{}", list2.size());
             list2.remove(str);
         }
-
 
 
         LinkedBlockingQueue<String> list3 = new LinkedBlockingQueue<>();
@@ -2019,9 +2033,9 @@ public class TestClass {
         list3.add("1");
         list3.add("2");
         list3.add("3");
-        for (String str : list3){
-            log.info("3-v:{}",str);
-            log.info("3-s:{}",list3.size());
+        for (String str : list3) {
+            log.info("3-v:{}", str);
+            log.info("3-s:{}", list3.size());
         }
 
 
@@ -2030,25 +2044,25 @@ public class TestClass {
         list4.add("1");
         list4.add("2");
         list4.add("3");
-        for (String str : list4){
-            log.info("4-v:{}",str);
-            log.info("4-s:{}",list4.size());
+        for (String str : list4) {
+            log.info("4-v:{}", str);
+            log.info("4-s:{}", list4.size());
         }
 
 
     }
 
     @Test
-    public void testQueue2(){
+    public void testQueue2() {
         ArrayDeque<String> list5 = new ArrayDeque<>();
         list5.addFirst("0");
         list5.addFirst("1");
         list5.addFirst("2");
         list5.add("x");
         list5.addFirst("3");
-        for (String str : list5){
-            log.info("5-v:{}",str);
-            log.info("5-s:{}",list5.size());
+        for (String str : list5) {
+            log.info("5-v:{}", str);
+            log.info("5-s:{}", list5.size());
 //            list1.remove(str);
             //list1.remove();
             System.out.println(list5.remove());
@@ -2057,13 +2071,13 @@ public class TestClass {
     }
 
     @Test
-    public void testQueue3(){
+    public void testQueue3() {
         ArrayDeque<String> list = new ArrayDeque<>();
-        for (int i = 0;i<8;i++){
-            list.addFirst("f"+i);
+        for (int i = 0; i < 8; i++) {
+            list.addFirst("f" + i);
         }
-        for (int i = 0;i<8;i++){
-            list.add("l:"+i);
+        for (int i = 0; i < 8; i++) {
+            list.add("l:" + i);
         }
         list.addFirst("x");
         System.out.println(JSON.toJSONString(list));
@@ -2071,11 +2085,61 @@ public class TestClass {
     }
 
     @Test
-    public void testQueue4(){
-        int[] iArr = {0,1,2,3,4,5,6};
+    public void testQueue4() {
+        int[] iArr = {0, 1, 2, 3, 4, 5, 6};
         int[] iArr2 = new int[14];
-        System.arraycopy(iArr,3,iArr2,0,4);
+        Integer[] iArr3 = new Integer[14];
         System.out.println(JSON.toJSONString(iArr2));
+        System.out.println(JSON.toJSONString(iArr3));
+        System.arraycopy(iArr, 3, iArr2, 0, 4);
+        System.out.println(JSON.toJSONString(iArr2));
+    }
+
+    @Test
+    public void testOperator1() {
+        int i1 = 5;
+        int i2 = 5;
+        int i3 = 4;
+        int i4 = -4;
+
+        int i5 = 14;
+        int i6 = 1;
+        System.out.println(i1 & i2);
+        System.out.println(i1 & i3);
+        System.out.println(i1 & i4);
+
+        System.out.println(i5 & i6);
+    }
+
+    @Test
+    public void testOperator2() {
+        int i1 = 5;
+        int i2 = 5;
+        int i3 = 4;
+        int i4 = -4;
+
+        int i5 = 14;
+        int i6 = 1;
+        System.out.println(i1 | i2);
+        System.out.println(i1 | i3);
+        System.out.println(i1 | i4);
+
+        System.out.println(i5 | i6);
+    }
+
+    @Test
+    public void testOperator3() {
+        int i1 = 12381233;
+        int c1 = 9;
+        int c2 = 16;
+
+        int c1a = c1 << 1;
+        int c2a = c2 << 1;
+        System.out.println(i1 & c1);
+        System.out.println(i1 & c1a);
+
+        System.out.println(i1 & c2);
+        System.out.println(i1 & c2a);
     }
 
     @Test
@@ -2095,6 +2159,21 @@ public class TestClass {
         ArrayDeque<String> list = (ArrayDeque<String>) objectInputStream.readObject();
         System.out.println(JSON.toJSONString(list));
 
+    }
+
+    @Test
+    public void test111() {
+        float f1 = 3.4f;
+        double l1 = 1.11111111;
+
+        float f2 = f1 + 1;
+        System.out.println(f2);
+
+        short s1 = 32767;
+        int i1 = (1 << 15) - 1;
+        s1 += +1;
+        System.out.println(s1);
+        System.out.println(i1);
     }
 
     public Object createList() {

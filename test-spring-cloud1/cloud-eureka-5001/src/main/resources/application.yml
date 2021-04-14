@@ -1,0 +1,50 @@
+server:
+  port: 5001
+  servlet:
+    encoding:
+      charset: UTF-8
+spring:
+  application:
+    name: sc-eureka-server
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+#单机
+#eureka:
+#  instance:
+#    hostname: 0.0.0.0
+#  client:
+#    #服务自身就是注册中心，false表示不向注册中心注册服务
+#    register-with-eureka: false
+#    #是否开启服务获取，false表示自己端就是注册中心，并不需要去检索服务
+#    fetch-registry: false
+#    #服务注册域地址
+#    service-url:
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+#集群
+#eureka:
+#  instance:
+#    hostname: eureka-server1.com
+#  client:
+#    #服务自身就是注册中心，false表示不向注册中心注册服务
+#    register-with-eureka: true
+#    #是否开启服务获取，false表示自己端就是注册中心，并不需要去检索服务
+#    fetch-registry: false
+#    #服务注册域地址
+#    service-url:
+#      defaultZone: http://eureka-server2.com:5002/eureka/
+
+eureka:
+#  instance:
+#    hostname: eureka-server1.com
+  client:
+    #服务自身就是注册中心，false表示不向注册中心注册服务
+    register-with-eureka: false
+    #是否开启服务获取，false表示自己端就是注册中心，并不需要去检索服务
+    fetch-registry: false
+    #服务注册域地址
+    service-url:
+      defaultZone: http://127.0.0.1:5002/eureka/
+  server:
+    #关闭自我保护机制，一旦接收不到客户端的心跳或者说续约就剔除该微服务
+#    enable-self-preservation: false

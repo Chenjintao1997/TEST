@@ -1,0 +1,37 @@
+server:
+  port: 10002
+  servlet:
+    encoding:
+      charset: UTF-8
+spring:
+  application:
+    name: sc-payment
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+eureka:
+  #    hostname: 0.0.0.0
+  client:
+    #服务注册域地址
+    service-url:
+      #      defaultZone: http://${eureka.instance.hostname}:5001/eureka/
+      defaultZone: http://127.0.0.1:5001/eureka/,http://127.0.0.1:5002/eureka/
+
+#配置不同微服务的负载均衡策略，默认轮询
+SC-ORDER:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+#配置openfeign的连接超时时间 默认为1s
+#ribbon:
+#  ReadTimeout: 4000
+#  ConnectTimeout: 4000
+feign:
+  client:
+    config:
+      SC-ORDER:
+        readTimeout: 4000
+        connectTimeout: 4000
+logging:
+  level:
+    com.cjt.test.service.OrderFeignSV: debug
